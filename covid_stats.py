@@ -58,13 +58,19 @@ plt.title("Cumulative confirmed cases of SARS-CoV-2 infections in Europe", fonts
 #number of days
 forecast = 7
 
-countries=['Italy','Germany','France','Spain','Switzerland','Norway','Denmark','Poland']
+countries=['Italy','Germany','France','Spain','Norway','Switzerland','United Kingdom','Poland']
 
 #countries=['Italy']
 
 for country in countries:
     
-    confirmed = [x for x in covid['countries'] if x['region/country']==country][0]
+    cf = [x for x in covid['countries'] if x['region/country']==country and x['province/state']==country]
+    
+    if len(cf)==0:
+        cf = [x for x in covid['countries'] if x['region/country']==country]
+    
+    
+    confirmed = cf[0]
     
     n = len(confirmed['confirmed'])
     
